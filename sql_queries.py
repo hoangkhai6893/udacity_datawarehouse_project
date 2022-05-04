@@ -36,8 +36,6 @@ SONG_DATA       = config.get('S3', 'SONG_DATA')
 # CREATE TABLES
 
 staging_events_table_create= ("""
-    CREATE SCHEMA IF NOT EXISTS nodist;
-    SET search_path TO nodist;
     CREATE TABLE IF NOT EXISTS staging_events(
         event_id INT IDENTITY(0,1) NOT NULL,
         artist_name VARCHAR(255)  NULL,
@@ -63,7 +61,7 @@ staging_events_table_create= ("""
 """)
 
 staging_songs_table_create = ("""
-    CREATE TABLE staging_songs(
+    CREATE TABLE IF NOT EXISTS staging_songs(
         song_id VARCHAR(100) PRIMARY KEY,
         num_songs INTEGER,
         artist_id VARCHAR(100),
@@ -78,7 +76,7 @@ staging_songs_table_create = ("""
 """)
 
 songplay_table_create = ("""
-    CREATE TABLE songplays(
+    CREATE TABLE IF NOT EXISTS songplays(
         songplay_id INT IDENTITY(0,1) PRIMARY KEY,
         start_time TIMESTAMP SORTKEY,
         user_id INTEGER NOT NULL DISTKEY,
@@ -93,7 +91,7 @@ songplay_table_create = ("""
 """)
 
 user_table_create = ("""
-    CREATE TABLE users(
+    CREATE TABLE IF NOT EXISTS users(
         user_id INTEGER NOT NULL SORTKEY,
         first_name VARCHAR(255) NULL ,
         last_name VARCHAR(255),
@@ -103,7 +101,7 @@ user_table_create = ("""
 """)
 
 song_table_create = ("""
-    CREATE TABLE songs(
+    CREATE TABLE IF NOT EXISTS songs(
         song_id VARCHAR(100) PRIMARY KEY,
         title VARCHAR(255),
         artist_id VARCHAR(100) NOT NULL DISTKEY,
@@ -113,7 +111,7 @@ song_table_create = ("""
 """)
 
 artist_table_create = ("""
-    CREATE TABLE artists(
+    CREATE TABLE IF NOT EXISTS artists(
         artist_id VARCHAR(100) PRIMARY KEY DISTKEY,
         name VARCHAR(255),
         location VARCHAR(255),
@@ -123,7 +121,7 @@ artist_table_create = ("""
 """)
 
 time_table_create = ("""
-    CREATE TABLE time(
+    CREATE TABLE IF NOT EXISTS time(
         start_time TIMESTAMP PRIMARY KEY,
         hour INTEGER,
         day INTEGER,
