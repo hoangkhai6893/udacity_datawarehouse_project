@@ -138,17 +138,12 @@ staging_events_copy = ("""
     COPY staging_events FROM {}
     CREDENTIALS 'aws_iam_role= {}'
     FORMAT as json {}
-    STATUPDATE ON
-    region 'us-west-2';
 """).format(LOG_DATA, ARN, LOG_JSONPATH)
 
 staging_songs_copy = ("""
     COPY staging_songs FROM {}
     CREDENTIALS 'aws_iam_role= {}'
     FORMAT as json 'auto'
-    ACCEPTINVCHARS AS '^'
-    STATUPDATE ON
-    region 'us-west-2';
 """).format(SONG_DATA, ARN)
 # FINAL TABLES
 
