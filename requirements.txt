@@ -1,0 +1,9 @@
+boto3
+psycopg2
+configparser
+ipython-sql
+matplotlib
+
+
+
+
