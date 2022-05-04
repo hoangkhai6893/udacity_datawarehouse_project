@@ -44,8 +44,8 @@
 - Take note of the access key and secret
 - Edit the file `dwh.cfg` in the same folder as this notebook and fill
 ### Step 2:
-- Run the datawarehouse.ipynb create IAM Role,RedShift and open an incoming  TCP port to access the cluster endpoint
+- Run the **datawarehouse.ipynb** create IAM Role,RedShift and open an incoming  TCP port to access the cluster endpoint
 - Get the DWH_ENDPOINT and DWH_ROLE_ARN to complete the file `dwh.cfg` in [CLUSTER] -> HOST and  ARN
 ### Step 3:
-- Run file **create_tables.py** to create new tables
-- Run file **etl.py** to execute ETL process
+- Run the %run -i create_tables.py and %run -i etl.py insside the **datawarehouse.ipynb** to create new tables and execute ETL process.
+Or choose run 2 python file **create_tables.py** and **etl.py** on python terminal.
