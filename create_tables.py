@@ -11,9 +11,13 @@ def drop_tables(cur, conn):
     Output : None
     """
     for query in drop_table_queries:
-        cur.execute(query)
-        conn.commit()
-
+        try:
+            cur.execute(query)
+            conn.commit()
+        except psycopg2.Error as e:
+            print("Error: dropping table: " + query)
+            print(e)
+    print("Tables is successfully dropped .")
 
 def create_tables(cur, conn):
     """
@@ -22,8 +26,13 @@ def create_tables(cur, conn):
     Output : None
     """
     for query in create_table_queries:
-        cur.execute(query)
-        conn.commit()
+        try:
+            cur.execute(query)
+            conn.commit()
+        except psycopg2.Error as e:
+            print("Error: creating table: " + query)
+            print(e)
+    print("Tables is successfully created .")
 
 def get_app_file_path(file):
     
@@ -39,8 +48,11 @@ def get_app_file_path(file):
 
 def main():
     """
-    Description: Set up and created the database tables with the appropriate columns and constricts
+    Description: Connect to AWS Redshift, create new Database table. Drop old tables and crete new tables.
+    Input: dwh.cfg file
+    Output: New data tables is created
     """
+    print("Running drop and create table process")
     config = configparser.ConfigParser()
     filename = 'dwh.cfg'
     config.read(get_app_file_path(filename))
@@ -49,6 +61,7 @@ def main():
 
     drop_tables(cur, conn)
     create_tables(cur, conn)
+    print("Drop and Create Table is DONE")
 
     conn.close()
 
